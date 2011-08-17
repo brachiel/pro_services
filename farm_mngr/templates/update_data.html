@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/update_data.css" media="screen" />
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{{ STATIC_URL }}js/jquery-1.6.2.min.js" type="text/javascript"></script>
+	<script src="{{ STATIC_URL }}js/update_data.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			tasks = ['{{ tasks.keys|join:"','" }}'];
+			data_base_url = '{{ data_base_url }}';
+			time_to_wait = {{ time_to_wait }};
+
+			init_data_gathering();
+		})
+	</script>
+{% endblock %}
+
+{% block content %}
+	<h3>Data update</h3>
+	<p>Processing the following tasks</p>
+	<ol class="task_list">
+{% for task, desc in tasks.items %}
+		<li id="{{ task }}">{{ desc }}</li>
+{% endfor %}
+	</ol>
+	<div id="error" style="display: none"></div>
+	<p id="done" style="display: none">Data gathering is done; thank you! Click
+		this link to <a href="/pro_services/control_panel/">return to the control panel</a>.</p>
+{% endblock %}
+

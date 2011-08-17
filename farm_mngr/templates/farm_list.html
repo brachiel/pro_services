@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Farm list for {{ username }}</h2>
+	<p>The type shows if the planet has exploits that you own, or if you get income by taxing it as a captive.</p>
+	<table>
+		<thead>	
+			<tr><th colspan="5">Exploitation farms</th></td>
+			<tr><th>Name</th><th>Coords</th><th>Civ. Level</th>
+				<th>Activity</th><th>Exploits</th><th /></tr>
+		</thead>
+		<tbody>
+{% for farm in exploitations|dictsort:"planet.name" %}
+			<tr><td>{{ farm.planet.name }} [{{ farm.planet.publictag }}]</td><td>({{ farm.planet.x }},{{ farm.planet.y }})</td>
+			<td>{{ farm.planet.civlevel }}</td><td>{{ farm.planet.activity }}</td><td>{{ farm.nbexp }}</td><td />
+{% endfor  %}
+		</tbody>
+		<thead>
+			<tr><th colspan="5">Infiltration farms</th></td>
+			<tr><th>Name</th><th>Coords</th><th>Civ. Level</th>
+				<th>Activity</th><th>Income</th><th>Tax</th></tr>
+		</thead>
+		<tbody>
+{% for farm in infiltrations|dictsort:"dst_planet.name" %}
+			<tr><td>{{ farm.dst_planet.name }} [{{ farm.dst_planet.publictag }}]</td><td>({{ farm.dst_planet.x }},{{ farm.dst_planet.y }})</td>
+			<td>{{ farm.dst_planet.civlevel }}</td><td>{{ farm.dst_planet.activity }}</td><td>{{ farm.income }}</td><td>{{ farm.tax }}</td>
+{% endfor  %}
+		</tbody>
+	</table>
+
+{% endblock %}
+

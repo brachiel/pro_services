@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p>Welcome {{ username }} to [Pro] services. This tool helps the alliance to gather important information about it's members. Be advised, that we never gather information about you without letting you know; and we only gather information <em>after</em> you actively clicked the update link below or in the menu. Please revisit this tool periodically to keep the information fresh, and the alliance strong.</p>
+	<p>So long - brachiel</p>
+	<p>
+	<ul><li><a href="/pro_services/update_data/">Update your data</a>. This link tells the tool to gather information about your Hyperiums account. It uses the HAPI key you entered in the login screen to ask the Hyperiums server about you. This information will be saved in our database and the [Pro] HC has access to it; and to base stategic decisions on it. Also, this data is used to provide some services to you like the "farm free?" checker.</li>
+		<li><a href="/pro_services/farm_list/">View a list of your farms</a>. This link lists the farms we have saved about you. This is an example of the kind of data we gathered. Use this list to make sure the tool gathered data about you correctly. Keep in mind, that this tool is still under development - if you find an error, or have a question about something, please contact <em>brachiel</em> in game directly.</li>
+		<li><a href="/pro_services/farm_free_check/">Check if a given planet is free</a>. This link gives you the opportunity to check if a given planet in SC14 is already marked by another player of [Pro] as his farm. You can use this to already sort some of the planets out. Keep in mind, thought, that this is no a guarantee that the planet is not taken - maybe the member just didn't update the farm information recently.</li>
+		<li><a href="{{ STATIC_URL }}optimise_trade.html">Optimise trades in a core</a>. This tool takes a list of planets, i.e. your core, and finds one of the optimal trading solutions for it; that means, it pairs up planets of compatible type to give the least average distance between those planets - for optimal trading performance of your cores.
+		<li><a href="/pro_services/user/logout/">Logout</a>.
+	</ul>
+{% endblock %}
+

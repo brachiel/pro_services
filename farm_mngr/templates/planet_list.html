@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Planet list for {{ username }}</h2>
+	<table>
+		<tr><th>Name</th><th>x</th><th>y</th><th>Civ. Level</th>
+			<th>Activity</th><th>Exploits</th><th>Population</th><th>Stasis</th></tr>
+{% for planet_name, planet in planets.items %}
+		<tr><td>{{ planet_name }} [{{ planet.publictag }}]</td><td>{{ planet.x }}</td><td>{{ planet.y }}</td><td>{{ planet.civlevel }}</td>
+			<td>{{ planet.activity }}</td><td>{{ planet.exploits }}</td><td>{{ planet.pop }}</td><td>{{ planet.stasis }}</td></tr>
+{% endfor  %}
+	</table>
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block extra_meta %}
+	<meta http-equiv="refresh" content="5; url=/pro_services/farm_list/">
+{% endblock %}
+
+{% block content %}
+	<p style="font-weight: bold">You will be redirected to <a href="/pro_services/farm_list/">your farm list</a> in 5 seconds</a>.</p>
+
+	<h2>Infiltration farm list for {{ username }}</h2>
+	<table>
+		<tr><th>Name</th><th>Captive</th><th>Tax</th><th>Income</th>
+			<th>Security</th></tr>
+{% for farms in planets.values %}
+{% for planet_name, planet in farms.items %}
+	{% if planet.captive == '1' %}
+		<tr><td>{{ planet_name }}</td><td>Yes</td><td>{{ planet.tax }}</td>
+			<td>{{ planet.income }}</td><td>{{ planet.security }}</td></tr>
+	{% else %}
+		<tr><td>{{ planet_name }}</td><td>No</td><td></td>
+			<td></td><td>{{ planet.security }}</td></tr>
+	{% endif %}
+{% endfor %}
+{% endfor %}
+	</table>
+{% endblock %}
+

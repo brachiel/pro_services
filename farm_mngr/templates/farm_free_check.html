@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block extra_js %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.6.2.min.js" ></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/dimensions.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/autocomplete.js"></script>
+
+	<script type="text/javascript">
+		function check_farm_free() {
+			var planet_name = $('#planetSearchField').val();
+
+			$.getJSON("/pro_services/farm_free_check_json/?query=" + planet_name, function(json){
+				$('#planet').html(planet_name);
+				$('#farm_check_results').css('display', 'block');
+
+				if (json == null) {
+					$('#farm_check_answer').html("was not found");
+					$('#farm_check_answer').css('color', '#000000');
+				} else if (json == true) {
+					$('#farm_check_answer').html("is free");
+					$('#farm_check_answer').css('color', '#00C000');
+				} else {
+					$('#farm_check_answer').html("is not free");
+					$('#farm_check_answer').css('color', '#FF8080');
+				}
+			});
+		}
+	</script>
+{% endblock %}
+
+{% block extra_css %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/autocomplete.css">
+	<style type="text/css">
+		#farm_check_results {
+			display: none;
+		}
+
+		#planet, #farm_check_answer {
+			text-width: bold;
+		}
+	</style>
+{% endblock extra_css %}
+
+{% block content %}
+	{% include "lookup_planet.html" %}
+	<input type="button" value="check" onclick="javascript:check_farm_free()" />
+	<p id="farm_check_results">The planet <span id="planet"></span> <span id="farm_check_answer"></span>.</p>
+{% endblock content %}
+

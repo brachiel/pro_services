@@ -1,0 +1,28 @@
+
+Pro services is a django app. That means if you want to use
+pro services, you'll have to install a copy of django.
+https://www.djangoproject.com/
+
+After you installed django, you need to start a new project.
+https://docs.djangoproject.com/en/1.3/intro/tutorial01/
+
+Copy the contents of the folder this INSTALL is in to your
+django project and adapt your settings.py.
+You need to adapt the INSTALL_APPS variable, and set
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'auth.hapi_auth.HAPIAuth',
+)
+
+and
+
+AUTH_PROFILE_MODULE = 'farm_mngr.HypUserProfile'
+
+Of course you have to edit the most of the other variables
+as well. Please read the django tutorial for details.
+
+Other optional options:
+LOGIN_URL = '/pro_services/user/login/'
+
+

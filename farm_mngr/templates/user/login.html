@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block menu %}
+	<h2>Please log in.</h2>
+{% endblock %}
+
+{% block content %}
+
+{% if error_message %}<p class="error"><strong>Error: {{ error_message }}</strong></p>{% endif %}
+<form action="/pro_services/user/login/" method="post">
+  {% csrf_token %}
+  <fieldset>
+      <legend>Login</legend>
+      <table>
+          <tr><td><label for="username">Username</label></td>
+              <td><input type="text" name="username" {% if username %}value="{{ username }}" {% endif %}/></td></tr>
+          <tr><td><label for="hapikey">HAPI Key</label></td>
+              <td><input type="text" name="hapikey" /></td>
+              <td><input type="submit" name="login" value="login" /></td></tr>
+      </table>
+  <!--fieldset>
+      <legend>Register</legend>
+      <table>
+          <tr><td><label for="password2">Password (again)</label></td>
+              <td><input type="password" name="password2" /></td></tr>
+          <tr><td><label for="email">Email (optional)</label></td>
+              <td><input type="text" name="email" {% if email %}value="{{ email }}" {% endif %}/></td>
+              <td><input type="submit" name="register" value="register" /></td></tr>
+      </table>
+  </fieldset-->
+  </fieldset>
+</form>
+
+<div id="login_walkthrough">
+	<p>To log in, please create a HAPI authentication key and post it in the box above. You do this
+	with two simple steps:</p>
+	<div class="image" style="width: 410px">
+		<img src="{{ STATIC_URL }}img/hapi_key_walkthrough_1.png" alt="Create an HAPI auth key" />
+		<div>Log into your Hyperiums account. In your accounts preferences on the <em>Authentication</em> tab,
+			 create a new HAPI key.
+		</div>
+	</div>
+
+	<div class="image" style="width: 410px">
+		<img src="{{ STATIC_URL }}img/hapi_key_walkthrough_2.png" alt="Copy the HAPI key" />
+		<div>Copy the external auth. key like shown above. Use this as your HAPI Authkey in the login dialog above.
+		</div>
+	</div>
+</div>
+
+{% endblock %}

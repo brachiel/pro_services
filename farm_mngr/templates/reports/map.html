@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="map">
+	<thead>
+		<colgroup>
+			{% for col in map %}<col />{% endfor %}
+		</colgroup>
+	</thead>
+	<tbody>
+		{% for x in map.x_coords %}
+			<tr class="coords">
+			{% for y in map.y_coords %}
+					<td>({{ x }}, {{ y }})</td>
+			{% endfor %}
+			</tr>
+			<tr class ="planets" rowspan="{{ col.max_planets }}">
+			{% for y in map.y_coords %}
+				{% for planet in map.planets.x.y %}
+					<td class="{{ planet.infotags }}">{{ planet.name }}{% if planet.publictag %} [{{ planet.publictag }}]{% endif %}</td>
+				{% endfor %}
+				{% if map.planets.x.y|length < col.max_planets %}
+					<td class="empty" rowspan="{{ col.max_planets - map.planets.x.y }}" />
+				{% endif %}
+			{% endfor %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock content %}
