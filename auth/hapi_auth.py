@@ -1,16 +1,18 @@
 
 from hapi import HAPI, HAPI_AuthFailed, HAPI_Error
-#from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 from django.contrib import messages
 from farm_mngr.models import HypUserProfile
 
-class HAPIAuth:
+class HAPIAuth(ModelBackend):
 	"""Return user if login to HAPI is successful; None otherwise"""
 
 	supports_object_permissions = False
 	supports_anonymous_user = False
 	supports_inactive_user = True
+
+	has_perm = ModelBackend.has_perm
 
 	def authenticate(self, username=None, hapikey=None, request=None):
 		try:

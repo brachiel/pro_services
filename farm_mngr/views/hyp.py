@@ -15,7 +15,7 @@ def control_panel(request):
 	user = request.user
 
 	t = loader.get_template('control_panel.html')
-	c = RequestContext(request, {'username': user.username})
+	c = RequestContext(request, {'username': user.username, 'user_permissions': user.get_all_permissions() })
 	return HttpResponse(t.render(c))
 
 @login_required

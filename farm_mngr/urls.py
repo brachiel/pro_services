@@ -17,5 +17,8 @@ urlpatterns = patterns('farm_mngr.views',
 	url(r'^farm_free_check/$', 'hyp.farm_free_check'),
 	url(r'^farm_free_check_json/$', 'hyp.farm_free_check_json'),
 
+	url(r'^reports/map/$', 'map.show_map'),
+	url(r'^reports/map/sector/$', 'map.map_sector'),
+
 	url(r'^lookup/planet$', 'hyp.lookup_planet'),
 )

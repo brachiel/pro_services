@@ -1,0 +1,51 @@
+.invisible {
+	visibility: hidden !important;
+	border: 0 !important;
+}
+
+.territory_highlight {
+	background-color: #732f16 !important;
+}
+
+#fixed_panel {
+	position: fixed;
+	background-color: #bfb084;
+	border: 2px solid #732f16;
+	padding: 3px;
+	margin: 2px;
+}
+
+#planet_info_list {
+	padding: 0; margin: 0;
+}
+#planet_info_list li {
+	list-style: none;
+	margin: 0; padding: 0;
+}
+
+#maptable, #maptable * {
+	padding: 0; margin: 0;
+}
+
+#maptable {
+	background-color: #bfb084;
+	font-size: xx-small;
+	border-collapse: collapse;
+}
+
+#maptable tr td {
+	background-color: #a69958;
+	border: 1px dotted black;
+}
+#maptable tr td.planet {
+	border-top: 0;
+}
+#maptable tr td.coords {
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 0;
+}
+#maptable tr td.not_pro {
+	background-color: #bfb084;
+}
+

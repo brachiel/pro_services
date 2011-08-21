@@ -15,7 +15,7 @@
 	<h1>[Pro] services - For a better alliance.</h1>
 	<div id="menu">
 		{% block menu %}
-		<h2>Control panel</h2>
+		<h2><a href="/pro_services/control_panel/">Control panel</a></h2>
 		
 		<p style="font-size: small">You're logged in as {{ username }}.</p>
 
@@ -28,6 +28,8 @@
 		{% endblock menu %}
 		{% block extra_menu %}{% endblock extra_menu %}
 	</div>
+	{% block panels %}
+	{% endblock %}
 
 	<div id="content">
 		{% block content %}

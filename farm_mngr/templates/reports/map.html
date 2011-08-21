@@ -1,30 +1,42 @@
 {% extends "base.html" %}
 
+{% block panels %}
+	<div id="fixed_panel">
+	</div>
+{% endblock %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/admin_map.css" media="screen" />
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{{ STATIC_URL }}js/jquery-1.6.2.min.js" type="text/javascript"></script>
+	<script src="{{ STATIC_URL }}js/admin_map.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		base_map_url = '{{ base_map_url }}';
+		territories = { {% for tag, list in territories.items %}'{{ tag }}': [{{ list|join:", " }}],{% endfor %} }
+
+		/* Deactivate all forms */
+		function deactivate_forms() {
+			$("#map_ctrl_form").submit(function(){return false});
+		}
+
+		$(document).ready(function() {
+			deactivate_forms();
+			map_init(); /* call the init function of admin_map.js */
+		});
+	</script>
+{% endblock %}
+
+
 {% block content %}
-<table class="map">
-	<thead>
-		<colgroup>
-			{% for col in map %}<col />{% endfor %}
-		</colgroup>
-	</thead>
-	<tbody>
-		{% for x in map.x_coords %}
-			<tr class="coords">
-			{% for y in map.y_coords %}
-					<td>({{ x }}, {{ y }})</td>
-			{% endfor %}
-			</tr>
-			<tr class ="planets" rowspan="{{ col.max_planets }}">
-			{% for y in map.y_coords %}
-				{% for planet in map.planets.x.y %}
-					<td class="{{ planet.infotags }}">{{ planet.name }}{% if planet.publictag %} [{{ planet.publictag }}]{% endif %}</td>
-				{% endfor %}
-				{% if map.planets.x.y|length < col.max_planets %}
-					<td class="empty" rowspan="{{ col.max_planets - map.planets.x.y }}" />
-				{% endif %}
-			{% endfor %}
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
+<h3>Officers Map</h3>
+<div id="map_ctrl">
+	<form id="map_ctrl_form">
+	<select id="ctrl_sc"><option>SC14</option></select>
+	<button onclick="javascript:map_show($('#ctrl_sc').val())">Show</button>
+	</form>
+</div>
+<div id="map">
+</div>
 {% endblock content %}

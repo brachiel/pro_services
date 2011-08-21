@@ -20,9 +20,7 @@ class HypUserProfile(models.Model):
 
 	class Meta:
 		permissions = (
-			("can_view_reports", "Can see any reports"),
-			("can_view_farms", "Can see all Pro farms at once"),
-			("can_view_fleet", "Can see detailed fleet information")
+			("map_show", "Can use the map"),
 		)
 
 # This signal handler will automatically create a HypUserProfile for every user
@@ -80,6 +78,11 @@ class PlanetDetail(models.Model):
 
 	__unicode__ = Planet.__unicode__
 
+	class Meta:
+		permissions = (
+			("report", "Use PlanetDetails in reports"),
+		)
+
 
 class Infiltration(models.Model):
 	user = models.ForeignKey(User)
@@ -104,6 +107,11 @@ class Infiltration(models.Model):
 			return "%s -> %s (captive)" % (self.src_planet.name, self.dst_planet.name)
 		else:
 			return "%s -> %s (%i/%i)" % (self.src_planet.name, self.dst_planet.name, self.level, self.security)
+
+	class Meta:
+		permissions = (
+			("report", "Use Infiltrations in reports"),
+		)
 			
 
 class Exploitation(models.Model):
@@ -117,5 +125,10 @@ class Exploitation(models.Model):
 
 	def __unicode__(self):
 		return "%s - %i" % (self.planet.name, self.nbexp)
+
+	class Meta:
+		permissions = (
+			("report", "Use Exploitations in reports"),
+		)
 
 
