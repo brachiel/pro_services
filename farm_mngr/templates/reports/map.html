@@ -2,6 +2,8 @@
 
 {% block panels %}
 	<div id="fixed_panel">
+	<form id="map_ctrl_form">
+	</form>
 	</div>
 {% endblock %}
 
@@ -18,6 +20,7 @@
 
 		/* Deactivate all forms */
 		function deactivate_forms() {
+			$("#map_load_form").submit(function(){return false});
 			$("#map_ctrl_form").submit(function(){return false});
 		}
 
@@ -32,8 +35,8 @@
 {% block content %}
 <h3>Officers Map</h3>
 <div id="map_ctrl">
-	<form id="map_ctrl_form">
-	<select id="ctrl_sc"><option>SC14</option></select>
+	<form id="map_load_form">
+	<select id="ctrl_sc">{% for opt in map_presets %}<option>{{ opt }}</option>{% endfor %}</select>
 	<button onclick="javascript:map_show($('#ctrl_sc').val())">Show</button>
 	</form>
 </div>

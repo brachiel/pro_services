@@ -3,7 +3,7 @@ from django.template import RequestContext, loader
 #from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 #from django.db import IntegrityError
-from farm_mngr.models import HypUserProfile
+from farm_mngr.models import HypUserProfile, Player
 
 #import re
 

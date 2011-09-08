@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 from auth.hapi import HAPI, HAPI_Error
-from farm_mngr.models import Planet, Infiltration, Exploitation, PlanetDetail
+from farm_mngr.models import Planet, Infiltration, Exploitation, PlanetDetail, Player
 from farm_mngr.views.user import logout
 
 @login_required
@@ -27,22 +27,32 @@ def update_data(request):
 		{'username': user.username,
 		 'tasks': {'planetinfo': "Controlled planets",
 		 		   'infiltrations': "Infiltrations",
-			 	   'exploitations': "Held exploitations"},
+			 	   'exploitations': "Held exploitations",
+				   'fleets': "Fleet on own planets",
+			 	   'fleets_away': "Fleet on foreign planets" },
 		 'data_base_url': '/pro_services/data/',
-		 'time_to_wait': 5, # in s
+		 'time_to_wait': 1, # in s,
 		})
 	return HttpResponse(t.render(c))
 
 # Helper function
 def get_farms(user=None):
 	try:
-		farms = Planet.objects.filter(
-			Q(infiltration_from__user=user, 
-			  infiltration_from__captive=True, 
-			  infiltration_from__income__gt=0, 
-			  infiltration_from__tax__gt=0) |
-			Q(exploitation__user=user, 
-			  exploitation__nbexp__gt=0))
+		if user:
+			farms = Planet.objects.filter(
+				Q(infiltration_dst__user=user, 
+				  infiltration_dst__captive=True, 
+				  infiltration_dst__income__gt=0, 
+				  infiltration_dst__tax__gt=0) |
+				Q(exploitation__user=user, 
+				  exploitation__nbexp__gt=0))
+		else:
+			farms = Planet.objects.filter(
+				Q(infiltration_dst__captive=True, 
+				  infiltration_dst__income__gt=0, 
+				  infiltration_dst__tax__gt=0) |
+				Q(exploitation__nbexp__gt=0))
+
 	except Planet.DoesNotExist:
 		farms = []
 

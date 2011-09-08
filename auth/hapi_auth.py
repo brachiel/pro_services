@@ -3,7 +3,7 @@ from hapi import HAPI, HAPI_AuthFailed, HAPI_Error
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 from django.contrib import messages
-from farm_mngr.models import HypUserProfile
+from farm_mngr.models import HypUserProfile, Player
 
 class HAPIAuth(ModelBackend):
 	"""Return user if login to HAPI is successful; None otherwise"""
@@ -42,12 +42,21 @@ class HAPIAuth(ModelBackend):
 			try:
 				p = user.get_profile()
 			except HypUserProfile.DoesNotExist:
-				p = HypUserProfile.objects.create(user=user)
+				try:
+					player = Player.objects.get(name=user.username)
+				except Player.DoesNotExist:
+					player = Player(name=user.username, hypid=base_hash['playerid'])
+					player.save()
+				p = HypUserProfile.objects.create(user=user, player=player)
 
 			try:
 				p.gameid = base_hash['gameid']
-				p.playerid = base_hash['playerid']
 				p.authkey = base_hash['authkey']
+				
+				# The playerid is stored on the player object
+				if p.player.hypid != base_hash['playerid']:
+					p.player.hypid = base_hash['playerid']
+					p.player.save()
 			except KeyError:
 				messages.error("There was an internal server error. This shouldn't happen :(. Code: Auth3")
 

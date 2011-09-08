@@ -10,6 +10,8 @@ urlpatterns = patterns('farm_mngr.views',
 	url(r'^data/planetinfo/$','data.planetinfo'),
 	url(r'^data/infiltrations/$','data.infiltrations'),
 	url(r'^data/exploitations/$','data.exploitations'),
+	url(r'^data/fleets/$','data.fleets'),
+	url(r'^data/fleets_away/$','data.fleets_away'),
 
 	url(r'^control_panel/$', 'hyp.control_panel'),
 	url(r'^update_data/$', 'hyp.update_data'),
@@ -19,6 +21,8 @@ urlpatterns = patterns('farm_mngr.views',
 
 	url(r'^reports/map/$', 'map.show_map'),
 	url(r'^reports/map/sector/$', 'map.map_sector'),
+	url(r'^reports/map/farms/$', 'map.map_get_farms'),
+	url(r'^reports/map/units/$', 'map.map_get_units'),
 
 	url(r'^lookup/planet$', 'hyp.lookup_planet'),
 )

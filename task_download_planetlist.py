@@ -63,7 +63,7 @@ for line in f.readlines():
 	tag = tag.strip('[]')
 	civ = int(civ)
 
-	if not (-881 <= y and y <= -835): # Not SC14
+	if not (abs(y + 264) <= 32 or abs(y + 858) <= 32 or abs(y + 594) <= 32): # in SC5, SC10 or SC14
 		continue 
 
 	print "%s (%s,%s) [%s]" % (name, x, y, tag)
