@@ -128,8 +128,8 @@ def infiltrations(request):
 
 			kwargs = { 'src_planet': src_planet,
 					   'dst_planet': dst_planet,
-					   'user': user,
-					   'owner': profile.player }
+					   'user': user }
+					   
 
 			for key in Infiltration.hapi_keys:
 				kwargs[key] = infiltr[key]

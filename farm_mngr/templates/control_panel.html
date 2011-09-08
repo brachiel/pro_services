@@ -10,6 +10,13 @@
 		<li><a href="/pro_services/user/logout/">Logout</a>.
 	</ul></p>
 	{% if user_permissions|length > 0 %}
+      {% if 'farm_mngr.map_show' in user_permissions %}
+    <p>Reports
+    <ul>
+       <li><a href="/pro_services/reports/map/">Report - Map</a></li>
+	</ul>
+    </p>
+      {% endif%}
 	<p>Your permissions
 	<ul>
 		{% for permission in user_permissions %}
